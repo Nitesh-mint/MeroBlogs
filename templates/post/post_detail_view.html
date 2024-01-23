@@ -1,0 +1,22 @@
+{% extends 'generic_base.html' %}
+
+{% block body %}
+    <div class="row text-center">
+        <h1 class="p-5 bg-light">{{ post.title }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <p class="text-muted">{{ post.created_on }}</p>
+        </div>
+        <div class="col-sm-10">
+            <p class="text-end">{{ post.author.username }}</p>
+        </div>
+    </div>  
+    <hr>
+    <div class="card-body">
+        <!-- ck ck-content is ckeditor5 class -->
+        <div class="ck ck-content">
+            {{ post.body|safe}}
+        </div>
+    </div>
+{% endblock body %}

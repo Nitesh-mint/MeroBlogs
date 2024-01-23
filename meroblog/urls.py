@@ -21,9 +21,13 @@ from django.conf.urls.static import static # for staticfiles
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    # Third Party
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
     # User management
     path("accounts/", include('allauth.urls')),
+
+    # Local
+    path('', include('blog.urls')),
 ]+ static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
