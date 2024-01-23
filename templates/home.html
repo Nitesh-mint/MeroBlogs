@@ -1,0 +1,11 @@
+{% extends 'generic_base.html' %}
+{% load static %}
+{% block title %} The Gundruk Post {% endblock title %}
+
+{% block body %}
+    <h1> This is a home page </h1>
+    <p id="testing">Testing it</p>
+    {% for post in blog_list %} 
+        <a href="">{{ post.title }}</a>
+    {% endfor %}
+{% endblock body %}
