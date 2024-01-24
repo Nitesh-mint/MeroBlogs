@@ -75,7 +75,6 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
 
                 #Local app context processor
-                "blog.context_processors.author_processor",
                 "blog.context_processors.categories_processor",
             ],
         },

@@ -1,4 +1,5 @@
 {% extends 'generic_base.html' %}
+{% load static %}
 
 {% block title %} Posts {% endblock title %}
 
@@ -8,8 +9,12 @@
     {% for post in post_list %}
         <div class="row m-1">
             <div class="author-list-page">
-                <img src="{{ post.author.profile_pic.url }}" width="25px" height="25px" style="border-radius: 50%;">
-                <p style="padding-top: 1rem;" class="text-muted">{{ post.author.user.username }}</p>
+                {% if post.author.image %}
+                    <img src="{{ post.author.image.url }}" width="25px" height="25px" style="border-radius: 50%;">
+                {% else %}
+                    <img src="{% static 'images/default.jpeg' %}" width="25px" height="25px" style="border-radius: 50%;">
+                {% endif %}
+                <p style="padding-top: 1rem; font-size: .8rem;" class="text-muted">{{ post.author.username }}</p>
                 <p style="padding-top: 1rem; font-size: .8rem;" class="text-muted">{{ post.created_on|date:'M d, Y' }}</p>
             </div>
             <div class="row">

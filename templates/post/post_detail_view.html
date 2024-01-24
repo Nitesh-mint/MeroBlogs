@@ -1,4 +1,5 @@
 {% extends 'generic_base.html' %}
+{% load static %}
 
 {% block body %}
     <div class="row text-center">
@@ -7,10 +8,14 @@
     <div class="container mt-1">
         <div class="row align-items-center d-flex flex-nowrap">
             <div class="col-md-1 col-2 flex-shrink-5 m-2">
-                <img src="{{ post.author.profile_pic.url }}" width="50" height="50" class="rounded-circle">
+                {% if post.author.image %}
+                    <img src="{{ post.author.image.url }}" width="50" height="50" class="rounded-circle" alt="Author Profile">
+                {% else %}
+                    <img src="{% static 'images/default.jpeg' %}" width="50" height="50" class="rounded-circle" alt="Author Profile">
+                {% endif %}
             </div>
             <div class="col-md-11 col-10 mx-0">
-                <p class="mb-0">{{ post.author.user.username }}</p>
+                <p class="mb-0">{{ post.author.username }}</p>
                 <p class="text-muted">{{ post.created_on }}</p>
             </div>
         </div>
