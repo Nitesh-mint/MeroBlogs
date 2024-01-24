@@ -1,0 +1,9 @@
+*{
+    font-family: 'Poppins', 'sans-serif' !important;
+}
+.author-list-page{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: .5rem;
+    align-items: center;
+}

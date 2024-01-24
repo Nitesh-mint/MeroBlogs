@@ -1,6 +1,15 @@
 from django.contrib import admin
 
-from .models import Post
+from .models import Post, Categories,Author
 
 
-admin.site.register(Post)
+class CustomPostAdmin(admin.ModelAdmin):
+    list_display = ['title','author','status']
+    prepopulated_fields = {'slug':('title',)}
+
+class CustomCategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug':('title',)}
+    
+admin.site.register(Post, CustomPostAdmin)
+admin.site.register(Categories, CustomCategoryAdmin)
+admin.site.register(Author)
