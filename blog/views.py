@@ -4,6 +4,9 @@ from django.views.generic import DetailView, ListView
 from .models import Post, Categories
 
 def home(request):
+    cat = Categories.objects.all()
+    print("hello")
+    print(cat[0])
     return render(request, 'home.html')
     
 class PostListView(ListView):
@@ -16,3 +19,22 @@ class PostDetailView(DetailView):
     context_object_name = 'post'
     template_name = 'post/post_detail_view.html'
 
+class CategoryView(DetailView):
+    model = Categories
+    template_name = 'post/categories_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        category = self.get_object()
+        print(category)
+        posts = Post.objects.filter(category=category)
+        post_count = len(posts)
+
+        context ={
+            'posts':posts,
+            'total_post':post_count,
+            'category':category,
+        }
+
+        return context

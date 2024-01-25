@@ -18,11 +18,12 @@ class Categories(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('categories', args=[str(self.slug)])
+        return reverse('category_detail', args=[str(self.slug)])
 
 class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=200,unique=True) 
+    thumbnail = models.ImageField(upload_to='Post Thumbnails', null=True, blank=True)
     category = models.ForeignKey(Categories, on_delete=models.PROTECT, null=True, blank=True) # Do not let category to be deleted until there is Post related to it!  
     body = CKEditor5Field('Text', config_name='extends')
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)

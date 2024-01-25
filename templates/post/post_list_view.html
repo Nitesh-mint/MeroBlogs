@@ -16,12 +16,13 @@
                 {% endif %}
                 <p style="padding-top: 1rem; font-size: .8rem;" class="text-muted">{{ post.author.username }}</p>
                 <p style="padding-top: 1rem; font-size: .8rem;" class="text-muted">{{ post.created_on|date:'M d, Y' }}</p>
+                <a href="{{ post.category.get_absolute_url }}" class="btn btn-sm btn-light">{{ post.category.title }}</a>
             </div>
             <div class="row">
                 <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-black fw-bolder"><p>{{ post.title }}</p></a>
-                <p>{{ post.body| striptags | safe | slice:":255" }}</p>
+                <p class="text-muted">{{ post.body| striptags | safe | slice:":80" }}</p>
             </div> 
-            <hr>
+            {% comment %} <hr> {% endcomment %}
         </div> 
     {% endfor %}
 </div>

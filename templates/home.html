@@ -3,10 +3,10 @@
 {% block title %} The Gundruk Post {% endblock title %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container">
         {% for category in categories %}
             {% if forloop.counter <= 5 %}
-                <a href="" class="btn btn-light">{{ category.title }}</a>
+                <a href="{{ category.get_absolute_url }}" class="btn btn-light">{{ category.title }}</a>
             {% endif %}
         {% endfor %}
     </div>

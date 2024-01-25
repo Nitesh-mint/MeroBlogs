@@ -1,0 +1,70 @@
+{% extends "generic_base.html" %}
+{% load static %}
+
+{% block title %}
+    Categories
+{% endblock title %}
+
+{% block body %}
+    <div class="row text-center">
+        <h1 class="p-2 display-4" style="font-weight: bolder;"> {{ category.title }} </h1>
+        <p class="text-muted mb-5"> {{ total_post }} Posts</p>
+        <hr>
+    </div>
+    {% if posts %}
+        <div class='container-fluid mt-5 p-4' style="max-width:1192px">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for post in posts %}
+                        {% if forloop.counter <= 2 %}
+                            <div class="col">
+                                <div class="card border-0 h-100">
+                                    {% if post.thumbnail %}
+                                        <a class="text-decoration-none " href="{{ post.get_absolute_url }}"> <img src="{{ post.thumbnail.url }}" class=" card-img-top"> </a>
+                                    {% endif %}
+                                    <div class="row align-items-center d-flex flex-nowrap mt-1">
+                                        <div class="col-md-1 col-2 flex-shrink-5 m-2">
+                                            {% if post.author.image %}
+                                                <img src="{{ post.author.image.url }}" width="30" height="30" class="rounded-circle" alt="Author Profile">
+                                            {% else %}
+                                                <img src="{% static 'images/default.jpeg' %}" width="30" height="30" class="rounded-circle" alt="Author Profile">
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-11 col-10 mx-0">
+                                            <p class="mb-0 pt-3" style="font-size:10px">{{ post.author.username }}</p>
+                                            <p class="text-muted" style="font-size:10px">{{ post.created_on }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <a class="text-decoration-none text-black" href="{{ post.get_absolute_url }}"> <h5 class="card-title"> {{ post.title | slice:":50" }}</h5> </a>
+                                        <p class="card-text text-muted">{{ post.body| striptags | safe | slice:":80" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="row row-cols-1 row-cols-sm-3 g-4 mt-5 mb-5">
+                    {% for post in posts %}
+                        {% if forloop.counter > 2 %}
+                                    <div class="card border-0 mb-2">
+                                        <a class="text-decoration-none " href="{{ post.get_absolute_url }}"> 
+                                            <div class="card border-0 h-100 d-flex">
+                                                {% if post.thumbnail %}
+                                                    <img src="{{ post.thumbnail.url }}" class="h-100 card-img-top" >
+                                                {% endif %}
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ post.title | slice:":60" }} </h5>
+                                                    <p class="card-text text-muted">{{ post.body| striptags | safe | slice:":50" }}</p>
+                                                </div>
+                                            </div>
+                                        </a>   
+                                    </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>No post here</p>
+    {% endif %}
+{% endblock body %}
