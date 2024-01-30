@@ -4,10 +4,12 @@ from django.views.generic import DetailView, ListView
 from .models import Post, Categories
 
 def home(request):
-    cat = Categories.objects.all()
-    print("hello")
-    print(cat[0])
-    return render(request, 'home.html')
+    posts = Post.objects.all()
+    context = {
+        'posts': posts,
+
+    }
+    return render(request, 'home.html', context)
     
 class PostListView(ListView):
     model = Post
