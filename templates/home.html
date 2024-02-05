@@ -24,8 +24,8 @@
                 </div>
                 <div class="row">
                     <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-black fw-bolder fs-5"><p class="poppin">{{ post.title }}</p></a>
-                    <p class="text-muted">{{ post.body| striptags | safe | slice:":80" }}</p>
-                    <a href="{{ post.get_absolute_url }}" class="text-decoration-none"> <p class="text-success">Read More <i class="fa-solid fa-arrow-right"></i> </p> </a>
+                    <p class="text-muted poppin">{{ post.body| striptags | safe | slice:":80" }}</p>
+                    <a href="{{ post.get_absolute_url }}" class="text-decoration-none poppin"> <p class="text-success">Read More <i class="fa-solid fa-arrow-right"></i> </p> </a>
                     <hr>
                 </div> 
             </div> 

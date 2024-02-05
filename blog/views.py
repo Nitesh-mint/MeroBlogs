@@ -4,7 +4,7 @@ from django.views.generic import DetailView, ListView
 from .models import Post, Categories
 
 def home(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(status=1)
     context = {
         'posts': posts,
 
