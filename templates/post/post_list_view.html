@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-black fw-bolder poppin"><p class="poppin">{{ post.title }}</p></a>
-                <p class="text-muted">{{ post.body| striptags | safe | slice:":80" }}</p>
+                <p class="text-muted poppin">{{ post.body| striptags | safe | slice:":80" }}</p>
             </div> 
             {% comment %} This is a comment {% endcomment %}
         </div> 
