@@ -1,13 +1,17 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
+from django.contrib import messages
+from django.urls import reverse
 
 from .models import Post, Categories
+from .forms import PostForm, PostUpdateForm
 
 def home(request):
     posts = Post.objects.filter(status=1)
     context = {
         'posts': posts,
-
     }
     return render(request, 'home.html', context)
     
@@ -40,3 +44,19 @@ class CategoryView(DetailView):
         }
 
         return context
+    
+class PostCreateView(CreateView):  
+    model = Post
+    form_class = PostForm
+    template_name = 'post/post_create_view.html'
+    
+    def get_success_url(self):
+        return reverse('post_detail', kwargs={'slug':self.object.slug})
+    
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = PostUpdateForm
+    template_name = 'post/post_update_view.html'
+    
+    def get_success_url(self):
+        return reverse('post_detail', kwargs={'slug':self.object.slug})

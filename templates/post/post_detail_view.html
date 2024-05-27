@@ -32,5 +32,8 @@
                 <p class="poppin"> {{ post.body|safe }} </p>
             </div>
         </div>
+        {% if request.user == post.author %}
+            <a href="{% url 'post_update' post.slug %}">Update</a>
+        {% endif %}
     </div>
 {% endblock body %}

@@ -25,7 +25,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200,unique=True, help_text="Url of the post") 
     thumbnail = models.ImageField(upload_to='Post Thumbnails', null=True, blank=True, help_text="This is a image field to show the image in the list and in the beginning of the post")
     category = models.ForeignKey(Categories, on_delete=models.PROTECT, null=True, blank=True) # Do not let category to be deleted until there is Post related to it!  
-    body = CKEditor5Field('Text', config_name='extends')
+    body = CKEditor5Field('Text', config_name='extends', blank=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
