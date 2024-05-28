@@ -1,0 +1,47 @@
+{% load static %}
+<div class="container">
+    {% for post in posts %}
+        <div class="row m-1">
+            <div class="author-list-page">
+                {% if post.author.image %}
+                    <img src="{{ post.author.image.url }}" width="25px" height="25px" style="border-radius: 50%;">
+                {% else %}
+                    <img src="{% static 'images/default.jpeg' %}" width="25px" height="25px" style="border-radius: 50%;">
+                {% endif %}
+                <p style="padding-top: 1rem; font-size: .8rem;" class="text-muted poppin">{{ post.author.username }}</p>
+                <p style="padding-top: 1rem; font-size: .8rem;" class="text-muted poppin">{{ post.created_on|date:'M d, Y' }}</p>
+                <a href="{{ post.category.get_absolute_url }}" class="btn btn-sm btn-light poppin">{{ post.category.title }}</a>
+            </div>
+            <div class="row">
+                <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-black fw-bolder fs-5"><p class="poppin">{{ post.title }}</p></a>
+                <p class="text-muted poppin">{{ post.body| striptags | safe | slice:":80" }}</p>
+                <a href="{{ post.get_absolute_url }}" class="text-decoration-none poppin"> <p class="text-success poppin">Read More <i class="fa-solid fa-arrow-right"></i> </p> </a>
+                <hr>
+            </div> 
+        </div> 
+    {% endfor %}
+    <div  class="row d-flex justify-content-center">
+        <div class="col col-3 text-center">
+            {% if page_obj.has_previous %}
+                <button
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-get="{% url 'home' %}?page={{ page_obj.previous_page_number }}"
+                hx-target="#post-list-container"
+                hx-swap="innerHTML"
+                class="btn btn-success">
+                Previous
+                </button>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <button
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-get="{% url 'home' %}?page={{ page_obj.next_page_number }}"
+                hx-target="#post-list-container"
+                hx-swap="innerHTML"
+                class="btn btn-success">
+                Next
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</div>

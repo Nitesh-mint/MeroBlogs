@@ -4,7 +4,7 @@
 {% block body %}
     <div class="container">
         <div class="row text-center">
-        <h1 class="p-2 display-4" style="font-weight: bolder;">{{ post.title }}</h1>
+            <h1 class="p-2 display-4" style="font-weight: bolder;">{{ post.title }}</h1>
         </div>
         <div class="container mt-1">
             <div class="row align-items-center d-flex flex-nowrap">
@@ -15,9 +15,13 @@
                         <img src="{% static 'images/default.jpeg' %}" width="50" height="50" class="rounded-circle" alt="Author Profile">
                     {% endif %}
                 </div>
-                <div class="col-md-11 col-10 mx-0">
-                    <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-muted"> <p class="mb-0 poppin">{{ post.author.username }}</p></a>
+                <div class="col-md-10 col-9 mx-0">
+                    <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark"> <p class="mb-0 poppin">{{ post.author.username }}</p></a>
                     <p class="text-muted poppin">{{ post.created_on }}</p>
+                </div>
+                <div class="col-md-1 col-1 mx-0">
+                    <p> {{ likes }} <i class="fa fa-thumbs-up text-primary" aria-hidden="true"></i>
+                    </p>
                 </div>
             </div>
         </div>
@@ -34,6 +38,15 @@
         </div>
         {% if request.user == post.author %}
             <a href="{% url 'post_update' post.slug %}">Update</a>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <div class="row ">
+                <div class="col text-center">
+                    <a href="{% url 'like_post' post.slug %}"><button class="btn btn-lg btn-success shadow">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                    </button></a>
+                </div>
+            </div>
         {% endif %}
     </div>
 {% endblock body %}

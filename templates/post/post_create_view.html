@@ -13,8 +13,6 @@
     {% endif %}
     <form method='post' enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.text | safe }}
-        {{ form.media }}
         {{ form | crispy}}
         <input type="submit" value="save">
     </form>

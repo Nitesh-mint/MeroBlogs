@@ -20,7 +20,7 @@ class PostUpdateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["body"].required=False
 
-    body = forms.CharField(widget=CKEditor5Widget(config_name='default'))
+    body = forms.CharField(widget=CKEditor5Widget(config_name='extends'))
 
     class Meta:
         model = Post

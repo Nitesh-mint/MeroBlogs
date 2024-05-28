@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_ckeditor_5",
+    'django_htmx'
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # For all-auth
     "allauth.account.middleware.AccountMiddleware",
+    # htmx
+      "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = "meroblog.urls"

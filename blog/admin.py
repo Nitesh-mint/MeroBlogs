@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post, Categories
+from .models import Post, Categories, PostLikes
 
 
 class CustomPostAdmin(admin.ModelAdmin):
@@ -12,3 +12,4 @@ class CustomCategoryAdmin(admin.ModelAdmin):
     
 admin.site.register(Post, CustomPostAdmin)
 admin.site.register(Categories, CustomCategoryAdmin)
+admin.site.register(PostLikes)
