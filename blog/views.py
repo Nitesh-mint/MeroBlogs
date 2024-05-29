@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse
+from django.utils.text import slugify
 
 from .models import Post, Categories, PostLikes
 from .forms import PostForm, PostUpdateForm
@@ -16,7 +17,7 @@ class Home(ListView):
     
     def get_template_names(self):
         if self.request.htmx:
-            return ['post/post_list_ajax.html']
+            return ['post/post_list_htmx.html']
         return ['home.html']
 class PostListView(ListView):
     model = Post
@@ -56,12 +57,18 @@ class CategoryView(DetailView):
         }
 
         return context
-    
-class PostCreateView(CreateView):  
+
+class PostCreateView(LoginRequiredMixin,CreateView):  
     model = Post
     form_class = PostForm
     template_name = 'post/post_create_view.html'
     
+    def form_valid(self, form):
+        form.instance.slug = slugify(form.instance.title)
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+
     def get_success_url(self):
         return reverse('post_detail', kwargs={'slug':self.object.slug})
     

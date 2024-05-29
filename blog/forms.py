@@ -16,6 +16,7 @@ class PostForm(forms.ModelForm):
         
 class PostUpdateForm(forms.ModelForm):
 
+    #adding this because ckeditor doesn't work without this
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["body"].required=False

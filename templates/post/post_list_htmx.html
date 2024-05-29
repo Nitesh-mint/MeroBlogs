@@ -12,11 +12,19 @@
                 <p style="padding-top: 1rem; font-size: .8rem;" class="text-muted poppin">{{ post.created_on|date:'M d, Y' }}</p>
                 <a href="{{ post.category.get_absolute_url }}" class="btn btn-sm btn-light poppin">{{ post.category.title }}</a>
             </div>
-            <div class="row">
-                <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-black fw-bolder fs-5"><p class="poppin">{{ post.title }}</p></a>
-                <p class="text-muted poppin">{{ post.body| striptags | safe | slice:":80" }}</p>
-                <a href="{{ post.get_absolute_url }}" class="text-decoration-none poppin"> <p class="text-success poppin">Read More <i class="fa-solid fa-arrow-right"></i> </p> </a>
-                <hr>
+            <div class="row d-flex">
+                <div class="col d-flex">
+                    <div class="col-10 flex-shrink-5 text-truncater">
+                        <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-black fw-bolder fs-5"><p class="poppin">{{ post.title }}</p></a>
+                        <p class="text-muted poppin">{{ post.body| striptags | safe | slice:":80" }}</p>
+                        <a href="{{ post.get_absolute_url }}" class="text-decoration-none poppin"> <p class="text-success poppin">Read More <i class="fa-solid fa-arrow-right"></i> </p> </a>
+                    </div>
+                    <div class="col-2 flex-shrink-0 d-flex align-items-center justify-content-center">
+                        {% if post.thumbnail %}
+                            <img src="{{ post.thumbnail.url }}" class="card-img-top img-fluid">
+                        {% endif %}
+                    </div>
+                </div>
             </div> 
         </div> 
     {% endfor %}

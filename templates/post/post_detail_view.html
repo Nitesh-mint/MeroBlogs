@@ -1,52 +1,62 @@
 {% extends 'generic_base.html' %}
 {% load static %}
-
+<style>
+</style>
 {% block body %}
-    <div class="container">
-        <div class="row text-center">
-            <h1 class="p-2 display-4" style="font-weight: bolder;">{{ post.title }}</h1>
-        </div>
-        <div class="container mt-1">
-            <div class="row align-items-center d-flex flex-nowrap">
-                <div class="col-md-1 col-2 flex-shrink-5">
-                    {% if post.author.image %}
-                        <img src="{{ post.author.image.url }}" width="50" height="50" class="rounded-circle" alt="Author Profile">
-                    {% else %}
-                        <img src="{% static 'images/default.jpeg' %}" width="50" height="50" class="rounded-circle" alt="Author Profile">
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="row col-8">
+                <div class="row text-center">
+                    <h1 class="p-2 display-4" style="font-weight: bolder;">{{ post.title }}</h1>
+                </div>
+                <div class="container mt-1">
+                    <div class="row align-items-center d-flex flex-nowrap">
+                        <div class="col-md-1 col-2 flex-shrink-5">
+                            {% if post.author.image %}
+                                <img src="{{ post.author.image.url }}" width="50" height="50" class="rounded-circle" alt="Author Profile">
+                            {% else %}
+                                <img src="{% static 'images/default.jpeg' %}" width="50" height="50" class="rounded-circle" alt="Author Profile">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9 col-9 mx-0 m-1 align-items-center d-flex flex-row post-detail">
+                            <div class="flex-fill d-flex flex-column post-detail">
+                                <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark pt-3"> <p class="mb-0 poppin"><span>Posted by:</span><span class="fw-light">{{ post.author.username }}</span></p></a>
+                                <p class="poppin"><span class="">Posted on:</span> <span class="fw-light">{{ post.created_on }}</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-1 mx-0 d-flex flex-column align-items-end">
+                            <p> <span class="fs-4">{{ likes }}</span> <i class="fa fa-heart text-danger" aria-hidden="true"></i>
+                            </p>
+                            {% if request.user == post.author %}
+                                <a href="{% url 'post_update' post.slug %}">{% if request.user == post.author %}
+                                    <a href="{% url 'post_update' post.slug %}"><i class="fa fa-pencil text-success" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                <div class="card-body">
+                    {% if post.thumbnail %}
+                        <img src="{{ post.thumbnail.url }}" alt="Post Thumbnail" class="img-thumbnail mb-4 mx-auto d-block">
                     {% endif %}
+                    <!-- ck ck-content is ckeditor5 class -->
+                    <div class="ck ck-content">
+                        <p class="poppin"> {{ post.body|safe }} </p>
+                    </div>  
                 </div>
-                <div class="col-md-10 col-9 mx-0">
-                    <a href="{{ post.author.get_absolute_url }}" class="text-decoration-none text-dark"> <p class="mb-0 poppin">{{ post.author.username }}</p></a>
-                    <p class="text-muted poppin">{{ post.created_on }}</p>
-                </div>
-                <div class="col-md-1 col-1 mx-0">
-                    <p> {{ likes }} <i class="fa fa-thumbs-up text-primary" aria-hidden="true"></i>
-                    </p>
-                </div>
+                {% if request.user.is_authenticated %}
+                    <div class="row ">
+                        <div class="col text-center">
+                            <a href="{% url 'like_post' post.slug %}"><button class="btn btn-lg btn-success shadow">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button></a>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
-        
-        <hr>
-        <div class="card-body">
-            {% if post.thumbnail %}
-                <img src="{{ post.thumbnail.url }}" alt="Post Thumbnail" class="img-fluid mb-4 mx-auto d-block">
-            {% endif %}
-            <!-- ck ck-content is ckeditor5 class -->
-            <div class="ck ck-content">
-                <p class="poppin"> {{ post.body|safe }} </p>
-            </div>
-        </div>
-        {% if request.user == post.author %}
-            <a href="{% url 'post_update' post.slug %}">Update</a>
-        {% endif %}
-        {% if request.user.is_authenticated %}
-            <div class="row ">
-                <div class="col text-center">
-                    <a href="{% url 'like_post' post.slug %}"><button class="btn btn-lg btn-success shadow">
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                    </button></a>
-                </div>
-            </div>
-        {% endif %}
     </div>
 {% endblock body %}

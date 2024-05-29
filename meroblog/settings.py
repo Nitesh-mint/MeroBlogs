@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-k9ii6_p4ehccax3lsaf$6q13x63qba-rr=dq&asdh_d11vv$an
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_ckeditor_5",
-    'django_htmx'
+    'django_htmx',
 ]
 
 MIDDLEWARE = [
@@ -160,6 +160,7 @@ AUTH_USER_MODEL = "accounts.CustomUser"  # Pointing to the custom user model
 LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT = "home"
 SITE_ID = 1
+LOGIN_URL = "account_login" #allauth default url for login
 
 """The below configuration is default in django and it is not present here 
 but we can add it here and won't affect anything"""
