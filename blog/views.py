@@ -19,6 +19,7 @@ class Home(ListView):
         if self.request.htmx:
             return ['post/post_list_htmx.html']
         return ['home.html']
+    
 class PostListView(ListView):
     model = Post
     context_object_name = 'post_list'
@@ -33,8 +34,12 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         likes  =  PostLikes.objects.filter(post=self.get_object()).count()
         context['likes'] = likes
-
         return context
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return ['post/likes_htmx.html']
+        return ['post/post_detail_view.html']
 
 
 
@@ -86,7 +91,9 @@ def like_posts(request, slug):
 
     if not created:
         like.delete()
+        # messages.info(request,"You disliked the post")
     else:
         like.save()
+        # messages.success(request,"You liked the post")
     
     return HttpResponseRedirect(reverse('post_detail',kwargs={'slug':slug}))

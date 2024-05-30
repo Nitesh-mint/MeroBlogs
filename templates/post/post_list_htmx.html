@@ -14,9 +14,9 @@
             </div>
             <div class="row d-flex">
                 <div class="col d-flex">
-                    <div class="col-10 flex-shrink-5 text-truncater">
-                        <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-black fw-bolder fs-5"><p class="poppin">{{ post.title }}</p></a>
-                        <p class="text-muted poppin">{{ post.body| striptags | safe | slice:":80" }}</p>
+                    <div class="col-7 flex-shrink-5">
+                        <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-black fw-bolder fs-5"><p class="poppin post-title-small">{{ post.title }}</p></a>
+                        <p class="text-muted poppin text-truncate">{{ post.body| striptags | safe | slice:":80" }}</p>
                         <a href="{{ post.get_absolute_url }}" class="text-decoration-none poppin"> <p class="text-success poppin">Read More <i class="fa-solid fa-arrow-right"></i> </p> </a>
                     </div>
                     <div class="col-2 flex-shrink-0 d-flex align-items-center justify-content-center">
@@ -32,7 +32,6 @@
         <div class="col col-3 text-center">
             {% if page_obj.has_previous %}
                 <button
-                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                 hx-get="{% url 'home' %}?page={{ page_obj.previous_page_number }}"
                 hx-target="#post-list-container"
                 hx-swap="innerHTML"
@@ -42,7 +41,6 @@
             {% endif %}
             {% if page_obj.has_next %}
                 <button
-                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                 hx-get="{% url 'home' %}?page={{ page_obj.next_page_number }}"
                 hx-target="#post-list-container"
                 hx-swap="innerHTML"

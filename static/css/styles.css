@@ -21,6 +21,13 @@
         object-fit: cover; 
     }
 }
+
+@media (max-width:550px){
+    .post-title-small{
+        font-size: 15px;
+    }
+}
+
 @media (max-width: 750px){
     .post-detail{
         font-size:10px;

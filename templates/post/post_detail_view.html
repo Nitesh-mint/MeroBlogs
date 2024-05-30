@@ -4,6 +4,9 @@
 </style>
 {% block body %}
     <div class="container mt-5">
+        <div id="alert">
+            {% include 'includes/alerts.html' %}
+        </div>
         <div class="d-flex justify-content-center align-items-center">
             <div class="row col-8">
                 <div class="row text-center">
@@ -25,7 +28,10 @@
                             </div>
                         </div>
                         <div class="col-md-2 col-1 mx-0 d-flex flex-column align-items-end">
-                            <p> <span class="fs-4">{{ likes }}</span> <i class="fa fa-heart text-danger" aria-hidden="true"></i>
+                            <div id="like-counter">
+                                {% include 'post/likes_htmx.html' %}
+                                {{ likes }}
+                            </div>
                             </p>
                             {% if request.user == post.author %}
                                 <a href="{% url 'post_update' post.slug %}">{% if request.user == post.author %}
@@ -38,7 +44,7 @@
                 </div>
                 
                 <hr>
-                <div class="card-body">
+                <div class="container-fluid card-body">
                     {% if post.thumbnail %}
                         <img src="{{ post.thumbnail.url }}" alt="Post Thumbnail" class="img-thumbnail mb-4 mx-auto d-block">
                     {% endif %}
@@ -50,7 +56,10 @@
                 {% if request.user.is_authenticated %}
                     <div class="row ">
                         <div class="col text-center">
-                            <a href="{% url 'like_post' post.slug %}"><button class="btn btn-lg btn-success shadow">
+                            <a hx-get="{% url 'like_post' post.slug %}"
+                            hx-target="#like-counter"
+                            hx-swap="innerHTML"
+                            ><button class="btn btn-lg btn-success shadow">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                             </button></a>
                         </div>

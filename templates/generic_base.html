@@ -39,7 +39,8 @@
         </div>
         <ul class="navbar-nav me-auto h-100 align-items-center">
           <li class="nav-item">
-            <a class="nav-link active" href="{% url 'post_create' %}">+
+            <a class="nav-link active d-flex justify-content-around" href="{% url 'post_create' %}">
+              <i class="fa fa-pencil fs-6" aria-hidden="true"></i>&nbsp;&nbsp;<span>Write</span>
             </a>
           </li>
           <li class="nav-item">
@@ -52,9 +53,6 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
