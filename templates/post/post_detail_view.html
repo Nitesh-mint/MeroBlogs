@@ -30,7 +30,6 @@
                         <div class="col-md-2 col-1 mx-0 d-flex flex-column align-items-end">
                             <div id="like-counter">
                                 {% include 'post/likes_htmx.html' %}
-                                {{ likes }}
                             </div>
                             </p>
                             {% if request.user == post.author %}

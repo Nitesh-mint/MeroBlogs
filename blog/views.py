@@ -41,8 +41,6 @@ class PostDetailView(DetailView):
             return ['post/likes_htmx.html']
         return ['post/post_detail_view.html']
 
-
-
 class CategoryView(DetailView):
     model = Categories
     template_name = 'post/categories_view.html'

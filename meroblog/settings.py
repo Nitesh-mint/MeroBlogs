@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "django_ckeditor_5",
     'django_htmx',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [

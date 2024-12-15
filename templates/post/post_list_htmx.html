@@ -1,3 +1,4 @@
+{% load thumbnail %}
 {% load static %}
 <div class="container">
     {% for post in posts %}
@@ -21,7 +22,7 @@
                     </div>
                     <div class="col-2 flex-shrink-0 d-flex align-items-center justify-content-center">
                         {% if post.thumbnail %}
-                            <img src="{{ post.thumbnail.url }}" class="card-img-top img-fluid">
+                            <img src="{% thumbnail post.thumbnail 300x0 %}" class="card-img-top img-fluid">
                         {% endif %}
                     </div>
                 </div>
